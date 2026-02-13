@@ -8,7 +8,7 @@ const Footer = () => {
           <div>
             <div className="flex items-center gap-2 mb-4">
               <BookOpen className="h-6 w-6 text-secondary" />
-              <span className="font-heading text-lg font-bold">LearnFlow</span>
+              <span className="font-heading text-lg font-bold">Secure Digital Technology</span>
             </div>
             <p className="text-sm text-primary-foreground/60">
               Empowering learners worldwide with quality education and expert-led courses.
@@ -36,7 +36,7 @@ const Footer = () => {
         </div>
 
         <div className="border-t border-primary-foreground/10 pt-8 text-center text-sm text-primary-foreground/40">
-          © 2025 LearnFlow. All rights reserved.
+          © 2025 Secure Digital Technology. All rights reserved.
         </div>
       </div>
     </footer>
