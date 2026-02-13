@@ -18,7 +18,7 @@ const Navbar = () => {
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
         <a href="/" className="flex items-center gap-2">
           <BookOpen className="h-7 w-7 text-secondary" />
-          <span className="font-heading text-xl font-bold text-foreground">LearnFlow</span>
+          <span className="font-heading text-xl font-bold text-foreground">Secure Digital Technology</span>
         </a>
 
         <div className="hidden md:flex items-center gap-8">

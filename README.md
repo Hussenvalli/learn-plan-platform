@@ -71,3 +71,42 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+
+## How to test in a Windows environment
+
+Use **PowerShell** from the project root:
+
+```powershell
+# 1) Verify tooling
+node -v
+npm -v
+
+# 2) Install dependencies
+npm install
+
+# 3) Run unit tests once
+npm run test
+
+# 4) Build production bundle
+npm run build
+
+# 5) (Optional) Run the app locally
+npm run dev
+```
+
+### Troubleshooting on Windows
+
+- If `npm run build` or `npm run test` says `vite`/`vitest` is not found, reinstall dependencies:
+
+```powershell
+Remove-Item -Recurse -Force .\node_modules
+Remove-Item -Force .\package-lock.json
+npm install
+```
+
+- If PowerShell blocks npm scripts, allow local scripts for your user:
+
+```powershell
+Set-ExecutionPolicy -Scope CurrentUser RemoteSigned
+```
