@@ -35,8 +35,12 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
-          <Button variant="ghost" size="sm">Sign In</Button>
-          <Button size="sm" asChild><Link to="/register">Get Started</Link></Button>
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/signin">Sign In</Link>
+          </Button>
+          <Button size="sm" asChild>
+            <Link to="/register">Get Started</Link>
+          </Button>
         </div>
 
         <button
@@ -67,8 +71,12 @@ const Navbar = () => {
                 </a>
               ))}
               <div className="flex gap-2 pt-2">
-                <Button variant="ghost" size="sm" className="flex-1">Sign In</Button>
-                <Button size="sm" className="flex-1" asChild><Link to="/register" onClick={() => setMobileOpen(false)}>Get Started</Link></Button>
+                <Button variant="ghost" size="sm" className="flex-1" asChild>
+                  <Link to="/signin" onClick={() => setMobileOpen(false)}>Sign In</Link>
+                </Button>
+                <Button size="sm" className="flex-1" asChild>
+                  <Link to="/register" onClick={() => setMobileOpen(false)}>Get Started</Link>
+                </Button>
               </div>
             </div>
           </motion.div>

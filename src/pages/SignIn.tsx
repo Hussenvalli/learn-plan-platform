@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { BookOpen, ArrowLeft } from "lucide-react";
+import { ArrowLeft, BookOpen } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 
-const Register = () => {
+const SignIn = () => {
   const navigate = useNavigate();
-  const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,29 +19,30 @@ const Register = () => {
     setErrorMessage("");
 
     try {
-      const response = await fetch("http://localhost:8081/api/auth/register", {
+      const response = await fetch("http://localhost:8081/api/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ fullName, email, password }),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
 
       if (!response.ok || !data?.success) {
-        const message = data?.message || "Registration failed. Please try again.";
+        const message = data?.message || "Login failed. Please try again.";
         setErrorMessage(message);
         return;
       }
 
+      localStorage.setItem("accessToken", data.accessToken ?? "");
       localStorage.setItem("userId", data.userId ?? "");
       localStorage.setItem("fullName", data.fullName ?? "");
-      localStorage.setItem("email", data.email ?? "");
+      localStorage.setItem("newUser", String(data.newUser ?? false));
 
-      navigate("/signin");
+      navigate("/");
     } catch (error) {
-      setErrorMessage("Unable to reach the registration service. Please try again.");
+      setErrorMessage("Unable to reach the login service. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -65,26 +65,12 @@ const Register = () => {
               <BookOpen className="h-5 w-5" />
               <span className="font-semibold">Secure Digital Technology</span>
             </div>
-            <CardTitle>Create your account</CardTitle>
-            <CardDescription>
-              Start learning today by creating a free account.
-            </CardDescription>
+            <CardTitle>Welcome back</CardTitle>
+            <CardDescription>Sign in to continue learning.</CardDescription>
           </CardHeader>
 
           <CardContent>
             <form className="space-y-4" onSubmit={handleSubmit}>
-              <div className="space-y-2">
-                <Label htmlFor="fullName">Full name</Label>
-                <Input
-                  id="fullName"
-                  type="text"
-                  placeholder="Jane Doe"
-                  value={fullName}
-                  onChange={(event) => setFullName(event.target.value)}
-                  required
-                />
-              </div>
-
               <div className="space-y-2">
                 <Label htmlFor="email">Email address</Label>
                 <Input
@@ -98,12 +84,19 @@ const Register = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Password</Label>
+                  <Link
+                    to="#"
+                    className="text-xs text-secondary hover:underline"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="At least 8 characters"
-                  minLength={8}
+                  placeholder="Your password"
                   value={password}
                   onChange={(event) => setPassword(event.target.value)}
                   required
@@ -115,14 +108,14 @@ const Register = () => {
               ) : null}
 
               <Button type="submit" className="w-full" disabled={isSubmitting}>
-                {isSubmitting ? "Creating account..." : "Create account"}
+                {isSubmitting ? "Signing in..." : "Sign in"}
               </Button>
             </form>
 
             <p className="mt-4 text-center text-sm text-muted-foreground">
-              Already have an account?{" "}
-              <Link to="/signin" className="text-secondary hover:underline">
-                Sign in
+              Don&apos;t have an account?{" "}
+              <Link to="/register" className="text-secondary hover:underline">
+                Create one
               </Link>
             </p>
           </CardContent>
@@ -132,4 +125,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default SignIn;
